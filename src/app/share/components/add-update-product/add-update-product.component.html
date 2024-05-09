@@ -1,0 +1,77 @@
+<app-header [isModal]="true" title="Agregar contenido"></app-header>
+<ion-content>
+  <form
+    [formGroup]="form"
+    class="ion-padding ion-text-center"
+    (ngSubmit)="submit()"
+    (keypress.enter)="submit()"
+  >
+    <!--Titulo-->
+    <app-custom-input
+      [control]="form.controls.name"
+      type="text"
+      label="Título"
+    ></app-custom-input>
+
+    <div
+      class="validator"
+      *ngIf="form.controls.name.errors && form.controls.name.touched"
+    >
+      <div class="validator" *ngIf="form.controls.name.errors?.['required']">
+        Este campo es obligatorio
+      </div>
+      <div class="validato" *ngIf="form.controls.name.errors?.['minlenght']">
+        El nombre debe tener al menos 4 caracteres
+      </div>
+    </div>
+    <!--Categoria-->
+    <app-custom-input
+      [control]="form.controls.category"
+      type="text"
+      label="Categoría"
+    ></app-custom-input>
+
+    <div
+      class="validator"
+      *ngIf="form.controls.category.errors && form.controls.category.touched"
+    >
+      <div class="validator" *ngIf="form.controls.category.errors?.['required']">
+        Este campo es obligatorio
+      </div>
+      <div class="validato" *ngIf="form.controls.category.errors?.['minlenght']">
+        El nombre debe tener al menos 4 caracteres
+      </div>
+    </div>
+
+ <!-- Sub Categoria-->
+ <app-custom-input
+ [control]="form.controls.subCategory"
+ type="text"
+ label="Sub Categoría"
+></app-custom-input>
+
+<div
+ class="validator"
+ *ngIf="form.controls.subCategory.errors && form.controls.subCategory.touched"
+>
+ <div class="validator" *ngIf="form.controls.subCategory.errors?.['required']">
+   Este campo es obligatorio
+ </div>
+ <div class="validato" *ngIf="form.controls.subCategory.errors?.['minlenght']">
+   El nombre debe tener al menos 4 caracteres
+ </div>
+</div>
+   
+
+    <!--boton cargar-->
+    <ion-button
+      mode="ios"
+      class="ion-margin"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Cargar
+      <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+    </ion-button>
+  </form>
+</ion-content>
