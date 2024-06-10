@@ -1,34 +1,40 @@
 import { Injectable, inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { FirebaseService } from '../services/firebase.service';
 import { UtilsService } from '../services/utils.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
-export class authGuard implements CanActivate{
-  
+export class authGuard implements CanActivate {
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
 
   canActivate(
-    route: ActivatedRouteSnapshot, 
-    state: RouterStateSnapshot): Observable <boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
-  
-      let user = localStorage.getItem('user');
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    let user = localStorage.getItem('user');
 
-      return new Promise((resolve)=>{
-        this.firebaseSvc.getAuth().onAuthStateChanged((auth) =>{
-if(auth){
-  if(user) resolve(true);
+    return new Promise((resolve) => {
+      this.firebaseSvc.getAuth().onAuthStateChanged((auth) => {
+        if (auth) {
+          if (user) resolve(true);
+        } else {
+          this.firebaseSvc.signOut();
+          resolve(false);
+        }
+      });
+    });
+  }
 }
-else{
-  this.utilSvc.routerLink('/auth');
-  resolve(false)
-}
-        })
-      })
-}
-};

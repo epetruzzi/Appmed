@@ -1,9 +1,15 @@
 <app-header title="inicio"></app-header>
 <ion-content>
-<!--Nueva carga-->
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="appUpdateProduct()">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+  <!--Boton cerrar cesión-->
+  <ion-button class="close" (click)="signOut()" size="small">
+    <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+    Cerrar cesión
+  </ion-button>
+
+  <!--Nueva carga-->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="appUpdateProduct()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
